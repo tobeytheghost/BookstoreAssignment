@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+
+<title>TobeyTheGhost BOOkstore</title>
+
+</head>
+
+<body>
+
+<h1>Book Database</h1>
+<h3>Please enter a book</h3>
+
+<table th:if="${bookList != null AND bookList != ''}">
+
+<tr>
+	<th>ISBN</th>
+	<th>Title</th>
+	<th>Author</th>
+	<th>Category </th>
+	<th>Price </th>
+	<th>Description </th>
+
+</tr>
+
+
+<tr th:each="b : ${bookList}">
+<td th:text="${b.isbn}">2516 </td>
+<td th:text="${b.title}">The Great Gatsby </td>
+<td th:text="${b.author}">F. Scott Fitzgerald </td>
+<td th:text="${b.category}">Classic </td>
+<td th:text="${b.price}">12.99 </td>
+<td th:text="${b.description}">CS </td>
+<td> <a th:href="@{/editBookById/}+${b.id}">Edit</a></td>
+
+<td> <a th:href="@{/deleteBookById/}+${b.id}">Delete</a></td>
+</tr>
+</table>
+
+
+<br><hr><br>
+
+<form method="post" action="#" th:action="@{/insertBook}" th:object="${book}">
+
+
+<input type="hidden" name="id" th:field="*{id}"> 
+
+<label> ISBN: </label>
+<input type="number" name="isbn" th:field="*{isbn}"> 
+<br>
+
+<label>Title: </label>
+<input type="text" name="title" th:field="*{title}"> 
+<br>
+
+<label>Author: </label>
+<input type="text" name="author" th:field="*{author}"> 
+<br>
+
+<label> Category: </label>
+<select th:field="*{category}">
+<option th:each="b:*{CATEGORIES}" th:value="${b}" th:text="${b}">
+</select>
+<br>
+
+<label>Price: </label>
+<input type="number" name="price" th:field="*{price}"> 
+<br>
+
+
+<label> Description: </label>
+<input type="text" name="description" th:field="*{description}"> 
+<br>
+
+
+<input type="submit" value="GO!">
+</form>
+
+
+</body>
+
+</html>
