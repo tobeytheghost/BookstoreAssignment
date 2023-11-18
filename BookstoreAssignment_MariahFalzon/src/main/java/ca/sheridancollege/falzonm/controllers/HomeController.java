@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import ca.sheridancollege.falzonm.beans.Book;
 import ca.sheridancollege.falzonm.database.DatabaseAccess;
@@ -29,11 +31,19 @@ public class HomeController {
 		model.addAttribute("book", new Book());
 		model.addAttribute("bookList", da.getBookList());
 		
-		da.insertBook(new Book());
 		return "index";
 	}
 	
 	//Mapping for inserting a book into the database
+	@PostMapping("/insertBook")
+	public String insertBook(Model model, @ModelAttribute Book book) {
+		da.insertBook(book);
+		
+		model.addAttribute("book", new Book());
+		model.addAttribute("bookList", da.getBookList());
+		
+		return "index";
+	}
 	
 	//Mapping for deleting an entry
 	@GetMapping("/deleteBookById/{id}")
@@ -61,6 +71,31 @@ public class HomeController {
 		return "index";
 	}
 	
+	//Mapping for Public Index to View Book Details 
+	@GetMapping("/details/{id}")
+	public String viewDetails(@PathVariable Long id, Model model) {
+		Book book = da.getBookListById(id).get(0);
+		model.addAttribute("book", book);
+		return "details";
+	}
 	
+	
+	
+//	//CODE FOR SECURITY
+//	@GetMapping("/secure")
+//	public String secureIndex() {
+//		return "/secure/index";
+//	}
+//	
+//	@GetMapping("/login")
+//	public String login() {
+//		return "login";
+//	}
+//	
+//	@GetMapping("/permission-denied")
+//	public String permissionDenied() {
+//		return "/error/permission-denied";
+//	}
+//	
 
 }

@@ -10,12 +10,12 @@ import lombok.NoArgsConstructor;
 public class Book {
 	
 	private Long id;
+	private Long isbn;
 	private String title;
 	private String author;
-	private Long isbn;
-	private Double price;
+	private double price;
 	private String description;
-	private String category;
-	
-	private final String[] CATEGORIES = {"Mystery", "Classic", "Non-Fiction", "Sci-Fi", "Childrens", "Thriller", "Dystioian"};
+	private int quantity; 
+
+
 }

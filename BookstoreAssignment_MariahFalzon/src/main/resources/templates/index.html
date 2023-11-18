@@ -4,14 +4,27 @@
 <head>
 <meta charset="ISO-8859-1">
 
+<link rel="Stylesheet" href="/css/style.css" >
+
 <title>TobeyTheGhost BOOkstore</title>
 
 </head>
 
 <body>
+	<nav>
+		<div class="logo">
+			<h1>TobeyTheGhost BOOkstore </h1>
+			<!-- icon provided by <a href="https://www.flaticon.com/free-icons/story" title="story icons">Story icons created by Zulfa Mahendra - Flaticon</a> -->
+			<a href="https://www.flaticon.com/free-icons/story" title="story icons"><img src="/images/ghost.png" alt="ghost icon"></a>
 
-<h1>Book Database</h1>
-<h3>Please enter a book</h3>
+		</div>
+		<ul class="navlinks"> 
+			<li> <a th:href="@{/register}">Create Account</a> </li>
+			<li> <a th:href="@{/secure}">Login</a> </li>
+		</ul>
+	</nav>
+
+<h1>Welcome!</h1>
 
 <table th:if="${bookList != null AND bookList != ''}">
 
@@ -19,7 +32,6 @@
 	<th>ISBN</th>
 	<th>Title</th>
 	<th>Author</th>
-	<th>Category </th>
 	<th>Price </th>
 	<th>Description </th>
 
@@ -30,54 +42,22 @@
 <td th:text="${b.isbn}">2516 </td>
 <td th:text="${b.title}">The Great Gatsby </td>
 <td th:text="${b.author}">F. Scott Fitzgerald </td>
-<td th:text="${b.category}">Classic </td>
 <td th:text="${b.price}">12.99 </td>
 <td th:text="${b.description}">CS </td>
-<td> <a th:href="@{/editBookById/}+${b.id}">Edit</a></td>
 
-<td> <a th:href="@{/deleteBookById/}+${b.id}">Delete</a></td>
+<td> <a th:href="@{'/details/' + ${b.id}}">View Details</a> </td>
 </tr>
 </table>
 
 
 <br><hr><br>
 
-<form method="post" action="#" th:action="@{/insertBook}" th:object="${book}">
 
 
-<input type="hidden" name="id" th:field="*{id}"> 
-
-<label> ISBN: </label>
-<input type="number" name="isbn" th:field="*{isbn}"> 
-<br>
-
-<label>Title: </label>
-<input type="text" name="title" th:field="*{title}"> 
-<br>
-
-<label>Author: </label>
-<input type="text" name="author" th:field="*{author}"> 
-<br>
-
-<label> Category: </label>
-<select th:field="*{category}">
-<option th:each="b:*{CATEGORIES}" th:value="${b}" th:text="${b}">
-</select>
-<br>
-
-<label>Price: </label>
-<input type="number" name="price" th:field="*{price}"> 
-<br>
-
-
-<label> Description: </label>
-<input type="text" name="description" th:field="*{description}"> 
-<br>
-
-
-<input type="submit" value="GO!">
-</form>
-
+<footer>
+	<!-- Copyright notice -->
+	<p>Copyright &#169; 2023 Mariah Falzon. </p>
+</footer>
 
 </body>
 

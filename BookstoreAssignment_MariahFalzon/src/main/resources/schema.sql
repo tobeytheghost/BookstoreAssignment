@@ -5,7 +5,6 @@ id LONG PRIMARY KEY AUTO_INCREMENT,
 isbn LONG,
 title VARCHAR(255),
 author VARCHAR(255),
-category VARCHAR(255),
 price DOUBLE,
-description VARCHAR(255)
+description VARCHAR(500)
 );
