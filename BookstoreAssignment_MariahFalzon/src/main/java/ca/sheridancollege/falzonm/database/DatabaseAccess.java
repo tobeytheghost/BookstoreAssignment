@@ -108,11 +108,12 @@ public class DatabaseAccess {
 	//Security Configuration Code 
 	
 	//addUser Code 
-	public void addUser(String userName, String password) {
+	public void addUser(String userName, String email, String password) {
 		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
 		
-		String query = "INSERT INTO sec_user (userName, encryptedPassword, enabled) VALUES (:userName, :encryptedPassword, 1)";
+		String query = "INSERT INTO sec_user (userName, email, encryptedPassword, enabled) VALUES (:userName, :email, :encryptedPassword, 1)";
 		namedParameters.addValue("userName", userName);
+		namedParameters.addValue("email", email);
 		namedParameters.addValue("encryptedPassword",passwordEncoder.encode(password));
 		jdbc.update(query, namedParameters);
 		}

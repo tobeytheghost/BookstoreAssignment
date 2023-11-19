@@ -37,6 +37,24 @@ public class HomeController {
 		return "index";
 	}
 	
+	
+	@GetMapping("/secure/guest/bookstore")
+	public String secureBookStore(Model model) {
+		model.addAttribute("book", new Book());
+		model.addAttribute("bookList", da.getBookList());
+		
+		return "secure/guest/bookstore";
+	}
+	
+	@GetMapping("/secure/admin/adminpage")
+	public String secureAdminPage(Model model) {
+		model.addAttribute("book", new Book());
+		model.addAttribute("bookList", da.getBookList());
+		
+		return "secure/admin/adminpage";
+	}
+	
+	
 	//Mapping for inserting a book into the database
 	@PostMapping("/insertBook")
 	public String insertBook(Model model, @ModelAttribute Book book) {
@@ -45,7 +63,7 @@ public class HomeController {
 		model.addAttribute("book", new Book());
 		model.addAttribute("bookList", da.getBookList());
 		
-		return "index";
+		return "redirect:/secure/admin/adminpage";
 	}
 	
 	//Mapping for deleting an entry
@@ -55,7 +73,7 @@ public class HomeController {
 		model.addAttribute("bookList", da.getBookList());
 		da.deleteBookById(id);
 		
-		return "index";
+		return "secure/admin/adminpage";
 	}
 	
 	//Mapping for Editing the book
@@ -71,7 +89,7 @@ public class HomeController {
 		//refresh the list
 		model.addAttribute("bookList", da.getBookList());
 		
-		return "index";
+		return "secure/admin/adminpage";
 	}
 	
 	//Mapping for Public Index to View Book Details 
@@ -91,8 +109,8 @@ public class HomeController {
 	}
 	
 	@GetMapping("/secure")
-	public String secureIndex() {
-		return "/secure/index";
+	public String secureAdminPage() {
+		return "secure/admin/adminpage";
 	}
 	
 	@GetMapping("/permission-denied")
@@ -108,15 +126,17 @@ public class HomeController {
 	
 	//Post Mapping after a User Registers 
 	@PostMapping("/register")
-	public String postRegister(@RequestParam String userName, @RequestParam String password) {
-		da.addUser(userName, password);
+	public String postRegister(@RequestParam String userName, @RequestParam String email, @RequestParam String password) {
+		da.addUser(userName, email, password);
 		
 		Long userId = da.findUserAccount(userName).getUserId();
 		
 		da.addRole(userId, Long.valueOf(1));
 		
-		return "redirect:/secure/index";
+		return "redirect:/secure/guest/bookstore";
 	}
+
+	
 	
 	
 	
