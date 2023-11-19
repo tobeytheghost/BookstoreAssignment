@@ -61,35 +61,30 @@ h1 {
     color: #515932;
 }
 
+div th\\:object span {
+    font-weight: bold;
+}
+
 table {
     margin: 20px auto;
-    border-collapse: collapse;
-    width: 80%;
 }
 
-table, th, td {
-    border-bottom: 1px solid #515932;
+p {
+    margin-bottom: 10px;
 }
 
-th, td {
-    padding: 10px;
-     border-bottom: 1px solid #515932;
-}
-tr:hover {background-color: #D93636;}
-table a {
-    text-decoration: none;
-    color: #515932;
-    transition: color 0.3s;
+strong {
+    margin-right: 5px;
 }
 
-table a:hover {
-    color: #fff; /* Change to your preferred hover color */
+span {
+    font-style: italic;
 }
 
-input[type="submit"]:hover {
-    background-color: #A62934; /* Change to your preferred hover color */
+/* Additional styles for the book details section */
+div[th\\:object="${book}"] {
+    margin-top: 20px;
 }
-
 
 footer {
     background-color: #D9725B;

@@ -192,6 +192,7 @@ public class HomeController {
 		model.addAttribute("book", new Book());
 		model.addAttribute("bookList", da.getBookList());
 		
+	
 		return "redirect:/secure/index";
 	}
 

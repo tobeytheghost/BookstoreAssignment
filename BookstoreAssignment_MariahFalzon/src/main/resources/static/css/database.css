@@ -1,4 +1,3 @@
-/* Reset some default styles for better consistency across browsers */
 body, h1, h2, p, ul, li, table {
     margin: 0;
     padding: 0;
@@ -56,10 +55,11 @@ nav img {
     color: #A62934; /* Change to your preferred hover color */
 }
 
-h1 {
+h1,h3 {
     margin-top: 20px;
     color: #515932;
 }
+
 
 table {
     margin: 20px auto;
@@ -68,14 +68,16 @@ table {
 }
 
 table, th, td {
-    border-bottom: 1px solid #515932;
+   border-bottom: 1px solid #515932;
 }
 
 th, td {
     padding: 10px;
-     border-bottom: 1px solid #515932;
+    border-bottom: 1px solid #515932;
 }
+
 tr:hover {background-color: #D93636;}
+
 table a {
     text-decoration: none;
     color: #515932;
@@ -86,16 +88,28 @@ table a:hover {
     color: #fff; /* Change to your preferred hover color */
 }
 
-input[type="submit"]:hover {
-    background-color: #A62934; /* Change to your preferred hover color */
+form {
+    margin: 20px auto;
 }
 
+label {
+    display: block;
+    margin-bottom: 5px;
+}
 
-footer {
-    background-color: #D9725B;
+input {
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    background-color: #F2CEA2;
     color: #fff;
-    padding: 10px;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #A62934; /* Change to your preferred hover color */
 }

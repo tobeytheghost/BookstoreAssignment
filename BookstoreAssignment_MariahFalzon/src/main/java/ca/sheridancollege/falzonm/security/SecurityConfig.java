@@ -42,7 +42,8 @@ public class SecurityConfig {
 				 .requestMatchers(mvc.pattern("/**")).denyAll()
 				 ).csrf(csrf -> csrf.ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/**")).disable())
 						 .headers(headers -> headers.frameOptions(FrameOptionsConfig::disable))
-						 .formLogin(form -> form.loginPage("/login").permitAll())
+						 .formLogin(form -> form.loginPage("/login").permitAll()
+								 .defaultSuccessUrl("/secure/index", true))
 						 .exceptionHandling(exception -> exception.accessDeniedPage("/permission-denied"))
 						 .logout(logout -> logout.permitAll())
 						 .build();
