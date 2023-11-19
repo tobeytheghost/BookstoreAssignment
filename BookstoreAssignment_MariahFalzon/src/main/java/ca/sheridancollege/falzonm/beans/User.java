@@ -15,9 +15,12 @@ public class User {
 	private String userName;
 	
 	@NonNull 
-	private String password;
+	private String encryptedPassword;
 	
 	@NonNull
 	private String email;
+	
+	@NonNull
+	private Boolean enabled;
 
 }

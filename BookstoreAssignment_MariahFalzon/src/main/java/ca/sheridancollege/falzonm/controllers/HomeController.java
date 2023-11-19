@@ -4,12 +4,14 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import ca.sheridancollege.falzonm.beans.Book;
 import ca.sheridancollege.falzonm.database.DatabaseAccess;
@@ -20,6 +22,7 @@ public class HomeController {
 	
 	//inject the database access
 	@Autowired
+	@Lazy
 	private DatabaseAccess da;
 	
 	//add a copy of the array 
@@ -79,23 +82,43 @@ public class HomeController {
 		return "details";
 	}
 	
+	//Security Controller Information
+	
+	//Mapping for Login
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
+	@GetMapping("/secure")
+	public String secureIndex() {
+		return "/secure/index";
+	}
+	
+	@GetMapping("/permission-denied")
+	public String permissionDenied() {
+		return "/error/permission-denied";
+	}
+	
+	//Mapping for Register Page
+	@GetMapping("/register")
+	public String getRegister() {
+		return "register";
+	}
+	
+	//Post Mapping after a User Registers 
+	@PostMapping("/register")
+	public String postRegister(@RequestParam String userName, @RequestParam String password) {
+		da.addUser(userName, password);
+		
+		Long userId = da.findUserAccount(userName).getUserId();
+		
+		da.addRole(userId, Long.valueOf(1));
+		
+		return "redirect:/secure/index";
+	}
 	
 	
-//	//CODE FOR SECURITY
-//	@GetMapping("/secure")
-//	public String secureIndex() {
-//		return "/secure/index";
-//	}
-//	
-//	@GetMapping("/login")
-//	public String login() {
-//		return "login";
-//	}
-//	
-//	@GetMapping("/permission-denied")
-//	public String permissionDenied() {
-//		return "/error/permission-denied";
-//	}
-//	
+	
 
 }
