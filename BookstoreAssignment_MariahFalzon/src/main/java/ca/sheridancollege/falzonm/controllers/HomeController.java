@@ -37,47 +37,29 @@ public class HomeController {
 		return "index";
 	}
 	
-	
-	@GetMapping("/secure/guest/bookstore")
-	public String secureBookStore(Model model) {
-		model.addAttribute("book", new Book());
-		model.addAttribute("bookList", da.getBookList());
-		
-		return "secure/guest/bookstore";
-	}
-	
-	@GetMapping("/secure/admin/adminpage")
-	public String secureAdminPage(Model model) {
-		model.addAttribute("book", new Book());
-		model.addAttribute("bookList", da.getBookList());
-		
-		return "secure/admin/adminpage";
-	}
-	
-	
 	//Mapping for inserting a book into the database
-	@PostMapping("/insertBook")
+	@PostMapping("/secure/editBook/insertBook")
 	public String insertBook(Model model, @ModelAttribute Book book) {
 		da.insertBook(book);
 		
 		model.addAttribute("book", new Book());
 		model.addAttribute("bookList", da.getBookList());
 		
-		return "redirect:/secure/admin/adminpage";
+		return "secure/index";
 	}
 	
 	//Mapping for deleting an entry
-	@GetMapping("/deleteBookById/{id}")
+	@GetMapping("/secure/editBook/deleteBookById/{id}")
 	public String deleteBookById(Model model, @PathVariable Long id) {
 		model.addAttribute("book", new Book());
 		model.addAttribute("bookList", da.getBookList());
 		da.deleteBookById(id);
 		
-		return "secure/admin/adminpage";
+		return "secure/index";
 	}
 	
 	//Mapping for Editing the book
-	@GetMapping("/editBookById/{id}")
+	@GetMapping("/secure/editBook/editBookById/{id}")
 	public String editBookById(Model model, @PathVariable Long id) {
 		Book book = da.getBookListById(id).get(0);
 		
@@ -89,7 +71,7 @@ public class HomeController {
 		//refresh the list
 		model.addAttribute("bookList", da.getBookList());
 		
-		return "secure/admin/adminpage";
+		return "secure/editBook";
 	}
 	
 	//Mapping for Public Index to View Book Details 
@@ -100,6 +82,31 @@ public class HomeController {
 		return "details";
 	}
 	
+	
+	//Mapping for Secure Pages
+	@GetMapping("/secure/details/{id}")
+	public String viewSecureDetails(@PathVariable Long id, Model model) {
+		Book book = da.getBookListById(id).get(0);
+		model.addAttribute("book", book);
+		return "secure/details";
+	}
+	
+	@GetMapping("/secure/editBook")
+	public String viewEditBooks(Model model) {
+		model.addAttribute("book", new Book());
+		model.addAttribute("bookList", da.getBookList());
+		return "secure/editBook";
+	}
+	
+	@GetMapping("/secure/shoppingCart")
+	public String viewCart(Model model) {
+		model.addAttribute("book", new Book());
+		model.addAttribute("bookList", da.getBookList());
+		return "secure/shoppingCart";
+	}
+	
+	
+	
 	//Security Controller Information
 	
 	//Mapping for Login
@@ -108,9 +115,11 @@ public class HomeController {
 		return "login";
 	}
 	
-	@GetMapping("/secure")
-	public String secureAdminPage() {
-		return "secure/admin/adminpage";
+	@GetMapping("/secure/index")
+	public String secureIndex(Model model) {
+		model.addAttribute("book", new Book());
+		model.addAttribute("bookList", da.getBookList());
+		return "secure/index";
 	}
 	
 	@GetMapping("/permission-denied")
@@ -133,7 +142,7 @@ public class HomeController {
 		
 		da.addRole(userId, Long.valueOf(1));
 		
-		return "redirect:/secure/guest/bookstore";
+		return "redirect:/secure/index";
 	}
 
 	

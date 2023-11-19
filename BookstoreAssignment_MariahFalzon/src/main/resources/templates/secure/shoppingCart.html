@@ -1,0 +1,65 @@
+<link rel="Stylesheet" href="/css/style.css" >
+
+<title>TobeyTheGhost BOOkstore - Cart</title>
+
+</head>
+
+<body>
+	<nav>
+		<div class="logo">
+			<h1>TobeyTheGhost BOOkstore </h1>
+			<!-- icon provided by <a href="https://www.flaticon.com/free-icons/story" title="story icons">Story icons created by Zulfa Mahendra - Flaticon</a> -->
+			<a href="https://www.flaticon.com/free-icons/story" title="story icons"><img src="/images/ghost.png" alt="ghost icon"></a>
+
+		</div>
+		<ul class="navlinks"> 
+			<li> <a th:href="@{/secure/index}">Home</a> </li>
+			<li> <a th:href="@{/secure/shoppingCart}">View Shopping Cart</a> </li>
+			<li> <a th:href="@{/secure/editBook}">Add Books to Store</a> </li>
+			<li> <a th:href="@{/logout}">Logout</a> </li>
+		</ul>
+	</nav>
+
+<h1>Shopping Cart</h1>
+
+<h1>Your Cart</h1>
+	<table>
+		<tr>
+			<th>Title</th>
+			<th>Author</th>
+			<th>Price</th>
+			<th>Quantity</th>
+			<th>Action</th>
+		</tr>
+		<tr th:each="book : ${cart}">
+			<td th:text="${book.title}"></td>
+			<td th:text="${book.author}"></td>
+			<td th:text="${book.price}"></td>
+			<td>
+				<form th:action="@{/updateCart}" method="post">
+					<input type="hidden" name="isbn" th:value="${book.isbn}" />
+					<input type="number" name="quantity" th:value="${book.quantity}" min="0" />
+			</td>
+			<td>
+				<button type="submit">Update</button>
+				</form>
+			</td>
+		</tr>
+	</table>
+
+	<!-- Total Cost Section -->
+	<h2>Total Cost: $<span th:text="${totalCost}">0.00</span></h2>
+
+	<form th:action="@{/checkout}" method="post">
+		<input type="submit" value="Checkout">
+	</form>
+
+
+<footer>
+	<!-- Copyright notice -->
+	<p>Copyright &#169; 2023 Mariah Falzon. </p>
+</footer>
+
+</body>
+
+</html>

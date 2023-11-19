@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-
-<html xmlns:th="https://www.thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-
 <link rel="Stylesheet" href="/css/style.css" >
 
 <title>TobeyTheGhost BOOkstore</title>
@@ -19,12 +13,14 @@
 
 		</div>
 		<ul class="navlinks"> 
-			<li> <a th:href="@{/register}">Create Account</a> </li>
-			<li> <a th:href="@{/login}">Login</a> </li>
+			<li> <a th:href="@{/secure/index}">Home</a> </li>
+			<li> <a th:href="@{/secure/shoppingCart}">View Shopping Cart</a> </li>
+			<li> <a th:href="@{/secure/editBook}">Add Books to Store</a> </li>
+			<li> <a th:href="@{/logout}">Logout</a> </li>
 		</ul>
 	</nav>
 
-<h1>Welcome!</h1>
+<h1>Welcome to TobeyTheGhost BOOkstore</h1>
 
 <table th:if="${bookList != null AND bookList != ''}">
 
@@ -37,7 +33,6 @@
 
 </tr>
 
-
 <tr th:each="b : ${bookList}">
 <td th:text="${b.isbn}">2516 </td>
 <td th:text="${b.title}">The Great Gatsby </td>
@@ -45,14 +40,16 @@
 <td th:text="${b.price}">12.99 </td>
 <td th:text="${b.description}">CS </td>
 
-<td> <a th:href="@{'/details/' + ${b.id}}">View Details</a> </td>
-
+<td> <a th:href="@{'/secure/details/' + ${b.id}}">View Details</a> </td>
+<td> 	<form th:action="@{/addToCart/{id}(id=${book.id})}" method="post">
+	<input type="number" name="quantity" min="1" value="1" />
+	<input type="submit" value="Add to Cart" />
+</form> </td>
 </tr>
 </table>
 
 
 <br><hr><br>
-
 
 
 
