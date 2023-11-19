@@ -29,15 +29,14 @@
 			<th>Author</th>
 			<th>Price</th>
 			<th>Quantity</th>
-			<th>Action</th>
 		</tr>
 		<tr th:each="book : ${cart}">
 			<td th:text="${book.title}"></td>
 			<td th:text="${book.author}"></td>
 			<td th:text="${book.price}"></td>
 			<td>
-				<form th:action="@{/updateCart}" method="post">
-					<input type="hidden" name="isbn" th:value="${book.isbn}" />
+				<form th:action="@{/secure/shoppingCart/updateCart}" method="post">
+					<input type="hidden" name="id" th:value="${book.id}" />
 					<input type="number" name="quantity" th:value="${book.quantity}" min="0" />
 			</td>
 			<td>
@@ -50,9 +49,7 @@
 	<!-- Total Cost Section -->
 	<h2>Total Cost: $<span th:text="${totalCost}">0.00</span></h2>
 
-	<form th:action="@{/checkout}" method="post">
-		<input type="submit" value="Checkout">
-	</form>
+	<p><a th:href="@{/secure/thankyou}">Checkout</a></p>
 
 
 <footer>

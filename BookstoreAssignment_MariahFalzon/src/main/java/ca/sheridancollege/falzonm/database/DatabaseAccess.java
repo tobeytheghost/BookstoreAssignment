@@ -59,9 +59,6 @@ public class DatabaseAccess {
 
 		jdbc.update(query, namedParameters);
 
-//		int rowsAffected = jdbc.update(query, namedParameters);
-//		
-//		if (rowsAffected > 0) System.out.println("Book inserted into database");
 	}
 
 	// updateBook
@@ -97,13 +94,41 @@ public class DatabaseAccess {
 	}
 	
 	//NEED ADD TO CART CODE
-	
+	public void addToCart(Book book) {
+		MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+		
+		namedParameters.addValue("id", book.getId());
+		namedParameters.addValue("quantity", book.getQuantity());
+		
+		String query = "INSET INTO cart (id, quantity) VALUES (:id, :quantity)";
+		jdbc.update(query, namedParameters);
+	}
 	
 	//NEED UPDATE CART CODE
+	public void updateCartQuantity(Long id, int quantity) {
+	    MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+	    namedParameters.addValue("id", id);
+	    namedParameters.addValue("quantity", quantity);
+
+	    String query = "UPDATE cart SET quantity = :quantity WHERE id = :id";
+	    jdbc.update(query, namedParameters);
+	}
+	
+	//get Cart Items from Book
+	public List<Book> getCartItems() {
+	    String query = "SELECT * FROM book b JOIN cart c ON b.id = c.id";
+	    return jdbc.query(query, new BeanPropertyRowMapper<>(Book.class));
+	}
 	
 	
 	//NEED REMOVE CART ITEM CODE
-	
+	public void removeCartItem(Long id) {
+	    MapSqlParameterSource namedParameters = new MapSqlParameterSource();
+	    namedParameters.addValue("id", id);
+
+	    String query = "DELETE FROM cart WHERE id = :id";
+	    jdbc.update(query, namedParameters);
+	}
 	
 	//Security Configuration Code 
 	

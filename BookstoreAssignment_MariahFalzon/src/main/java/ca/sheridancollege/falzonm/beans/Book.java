@@ -15,7 +15,11 @@ public class Book {
 	private String author;
 	private double price;
 	private String description;
-	private int quantity; 
+	private int quantity;
+	public void add(Book book) {
+		// TODO Auto-generated method stub
+		
+	} 
 
 
 }

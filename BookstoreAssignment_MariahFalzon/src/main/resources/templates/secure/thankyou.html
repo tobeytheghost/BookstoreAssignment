@@ -1,6 +1,6 @@
 <link rel="Stylesheet" href="/css/style.css" >
 
-<title>TobeyTheGhost BOOkstore</title>
+<title>TobeyTheGhost BOOkstore - Cart</title>
 
 </head>
 
@@ -20,39 +20,7 @@
 		</ul>
 	</nav>
 
-<h1>Welcome to TobeyTheGhost BOOkstore</h1>
-
-<table th:if="${bookList != null AND bookList != ''}">
-
-<tr>
-	<th>ISBN</th>
-	<th>Title</th>
-	<th>Author</th>
-	<th>Price </th>
-	<th>Description </th>
-
-</tr>
-
-<tr th:each="b : ${bookList}">
-<td th:text="${b.isbn}">2516 </td>
-<td th:text="${b.title}">The Great Gatsby </td>
-<td th:text="${b.author}">F. Scott Fitzgerald </td>
-<td th:text="${b.price}">12.99 </td>
-<td th:text="${b.description}">CS </td>
-
-<td> <a th:href="@{'/secure/details/' + ${b.id}}">View Details</a> </td>
-<td> 	
-	<form method="post" th:action="@{/secure/index/addToCart/{id}(id=${b.id})}" th:object="${book}">
-	<input type="number" name="quantity" min="1" value="1" />
-	<input type="submit" value="Add to Cart" />
-</form> 
-</td>
-</tr>
-</table>
-
-
-<br><hr><br>
-
+<h1>Thank You For Your Order. It is being processed</h1>
 
 
 <footer>
